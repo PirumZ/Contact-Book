@@ -60,7 +60,12 @@ public class ContactView {
 
     public void displayContact(Contact contact)
     {
-        System.out.println(contact);
+        if (contact != null) {
+            System.out.println(contact);
+        }else
+        {
+            System.out.println("Contact not found.");
+        }
     }
 
     public void displayContactList(ArrayList<Contact> contactList)

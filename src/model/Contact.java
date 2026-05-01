@@ -22,6 +22,11 @@ public class Contact {
                 ", email='" + email + '\'';
     }
 
+    public String toCSV()
+    {
+        return name + "," + address + "," + phoneNumber + "," + email;
+    }
+
     public String getName() {
         return name;
     }

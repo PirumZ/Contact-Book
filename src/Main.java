@@ -5,6 +5,9 @@ import view.ContactView;
  void main() {
         ArrayList<Contact> contactList = new ArrayList<>();
         ContactController controller = new ContactController(contactList);
+
+        controller.loadContactsFromFile();
+
         ContactView view = new ContactView();
 
         view.displayGreeting();
@@ -38,6 +41,7 @@ import view.ContactView;
                     view.displayContact(foundContact);
                     break;
                 case "5":
+                    controller.saveContactsToFile();
                     running = false;
                     break;
                 default:
