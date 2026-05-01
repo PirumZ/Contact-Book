@@ -24,10 +24,13 @@ import view.ContactView;
                     String address = view.getAddress();
                     String phoneNumber = view.getPhoneNumber();
                     String email = view.getEmail();
-                    controller.addContact(name, address, phoneNumber, email);
+                    boolean creationStatus = controller.addContact(name, address, phoneNumber, email);
+                    view.creationConfirmation(creationStatus);
                     break;
                 case "3":
-                    // Delete contact, WIP
+                    String deleteName = view.getName();
+                    boolean deletionStatus = controller.deleteContact(deleteName);
+                    view.deletionConfirmation(deletionStatus);
                     break;
                 case "4":
                     String searchName = view.getName();

@@ -10,12 +10,13 @@ public class ContactController {
         this.contacts = contacts;
     }
 
-    public void addContact(String name, String address, String phoneNumber, String email)
+    public boolean addContact(String name, String address, String phoneNumber, String email)
     {
         Contact contact = new Contact(name, address, phoneNumber, email);
         contacts.add(contact);
-        System.out.println("Contact added successfully.");
+        return true;
     }
+
 
 
     public Contact searchContact(String name)
@@ -28,6 +29,19 @@ public class ContactController {
             }
         }
         return null;
+    }
+
+    public boolean deleteContact(String name)
+    {
+        for (int i = 0; i < contacts.size(); i++)
+        {
+            if (contacts.get(i).getName().equalsIgnoreCase(name))
+            {
+                contacts.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Contact> getContacts() {

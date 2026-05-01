@@ -19,7 +19,7 @@ public class Contact {
         return "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email;
+                ", email='" + email + '\'';
     }
 
     public String getName() {

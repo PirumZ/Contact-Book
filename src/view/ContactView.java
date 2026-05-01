@@ -26,10 +26,30 @@ public class ContactView {
                 """
                         1. View your contacts.
                         2. Add a new contact.
-                        3. Delete a contact (WIP)
-                        4. Search for a contact
-                        5. Exit the program"""
+                        3. Delete a contact.
+                        4. Search for a contact.
+                        5. Exit the program."""
         );
+    }
+
+    public void creationConfirmation(boolean status)
+    {
+        if (status) {
+            System.out.println("Contact created successfully.");
+        }else
+        {
+            System.out.println("Contact not created.");
+        }
+    }
+
+    public void deletionConfirmation(boolean status)
+    {
+        if (status) {
+            System.out.println("Contact successfully deleted.");
+        }else
+        {
+            System.out.println("Contact not found.");
+        }
     }
 
     public String getMenuChoice()
