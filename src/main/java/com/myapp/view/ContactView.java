@@ -1,5 +1,6 @@
 package com.myapp.view;
 import com.myapp.model.Contact;
+import com.myapp.model.ContactInfo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -28,8 +29,19 @@ public class ContactView {
                         2. Add a new contact.
                         3. Delete a contact.
                         4. Search for a contact.
-                        5. Exit the program."""
+                        5. Update a contact.
+                        6. Exit the program."""
         );
+    }
+
+    public ContactInfo getContactInput()
+    {
+        String name = getName();
+        String address = getAddress();
+        String phoneNumber = getPhoneNumber();
+        String email = getEmail();
+
+        return new ContactInfo(name, address, phoneNumber, email);
     }
 
     public void creationConfirmation(boolean status)

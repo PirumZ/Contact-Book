@@ -1,25 +1,45 @@
 package com.myapp.controller;
 import com.myapp.model.Contact;
+import com.myapp.model.ContactInfo;
 
 import java.io.*;
 import java.util.ArrayList;
 
 public class ContactController {
-    private ArrayList<Contact> contacts;
+    private ArrayList<Contact> contacts = new ArrayList<>();
 
-    public ContactController(ArrayList<Contact> contacts)
-    {
-        this.contacts = contacts;
+    public ContactController(){
     }
 
-    public boolean addContact(String name, String address, String phoneNumber, String email)
+
+    public boolean addContact(ContactInfo contactInfo)
     {
-        Contact contact = new Contact(name, address, phoneNumber, email);
+        Contact contact = new Contact(
+                contactInfo.getName(),
+                contactInfo.getAddress(),
+                contactInfo.getPhoneNumber(),
+                contactInfo.getEmail()
+        );
         contacts.add(contact);
         return true;
     }
 
 
+    public boolean updateContact(String nameToFind, ContactInfo contactInfo)
+    {
+        for (Contact contact : contacts)
+        {
+            if (contact.getName().equalsIgnoreCase(nameToFind))
+            {
+                contact.setName(contactInfo.getName());
+                contact.setAddress(contactInfo.getAddress());
+                contact.setPhoneNumber(contactInfo.getPhoneNumber());
+                contact.setEmail(contactInfo.getEmail());
+                return true;
+            }
+        }
+        return false;
+    }
 
     public Contact searchContact(String name)
     {

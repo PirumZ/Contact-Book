@@ -1,19 +1,16 @@
 package com.myapp;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.myapp.controller.ContactController;
 import com.myapp.model.Contact;
 import com.myapp.view.ContactView;
 
-import java.util.ArrayList;
 
-
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Contact> contactList = new ArrayList<>();
-        ContactController controller = new ContactController(contactList);
-
+        ContactController controller = new ContactController();
         controller.loadContactsFromFile();
-
         ContactView view = new ContactView();
 
         view.displayGreeting();
@@ -25,15 +22,10 @@ public class Main {
 
             switch (userChoice) {
                 case "1":
-                    ArrayList<Contact> contacts = controller.getContacts();
-                    view.displayContactList(contacts);
+                    view.displayContactList(controller.getContacts());
                     break;
                 case "2":
-                    String name = view.getName();
-                    String address = view.getAddress();
-                    String phoneNumber = view.getPhoneNumber();
-                    String email = view.getEmail();
-                    boolean creationStatus = controller.addContact(name, address, phoneNumber, email);
+                    boolean creationStatus = controller.addContact(view.getContactInput());
                     view.creationConfirmation(creationStatus);
                     break;
                 case "3":
@@ -47,6 +39,10 @@ public class Main {
                     view.displayContact(foundContact);
                     break;
                 case "5":
+                    String nameToUpdate = view.getName();
+                    boolean creationStat = controller.updateContact(nameToUpdate, view.getContactInput());
+                    view.creationConfirmation(creationStat);
+                case "6":
                     controller.saveContactsToFile();
                     running = false;
                     break;
