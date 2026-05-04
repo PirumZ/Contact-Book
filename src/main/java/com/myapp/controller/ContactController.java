@@ -4,6 +4,7 @@ import com.myapp.model.ContactInfo;
 
 import java.io.*;
 import java.util.ArrayList;
+import static java.lang.Integer.parseInt;
 
 public class ContactController {
     private ArrayList<Contact> contacts = new ArrayList<>();
@@ -25,11 +26,11 @@ public class ContactController {
     }
 
 
-    public boolean updateContact(String nameToFind, ContactInfo contactInfo)
+    public boolean updateContact(int idToFind, ContactInfo contactInfo)
     {
         for (Contact contact : contacts)
         {
-            if (contact.getName().equalsIgnoreCase(nameToFind))
+            if (contact.getId() == idToFind)
             {
                 contact.setName(contactInfo.getName());
                 contact.setAddress(contactInfo.getAddress());
@@ -41,11 +42,11 @@ public class ContactController {
         return false;
     }
 
-    public Contact searchContact(String name)
+    public Contact searchContact(int id)
     {
         for (Contact contact : contacts)
         {
-            if (contact.getName().equalsIgnoreCase(name))
+            if (contact.getId() == id)
             {
                 return contact;
             }
@@ -53,11 +54,11 @@ public class ContactController {
         return null;
     }
 
-    public boolean deleteContact(String name)
+    public boolean deleteContact(int id)
     {
         for (int i = 0; i < contacts.size(); i++)
         {
-            if (contacts.get(i).getName().equalsIgnoreCase(name))
+            if (contacts.get(i).getId() == id)
             {
                 contacts.remove(i);
                 return true;
@@ -85,22 +86,34 @@ public class ContactController {
     {
         String filePath = "src/main/java/com/myapp/data/data.csv";
 
+        contacts.clear();
         try (FileReader fr = new FileReader(filePath);
              BufferedReader br = new BufferedReader(fr)) {
 
             String line;
+            int maxId = 0;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 4)
+                if (parts.length == 5)
                 {
-                String name = parts[0].trim();
-                String address = parts[1].trim();
-                String phoneNumber = parts[2].trim();
-                String email = parts[3].trim();
 
-                contacts.add(new Contact(name, address, phoneNumber, email));
+                try {
+                    int id = parseInt(parts[0].trim());
+
+                    if (id > maxId) maxId = id;
+                    String name = parts[1].trim();
+                    String address = parts[2].trim();
+                    String phoneNumber = parts[3].trim();
+                    String email = parts[4].trim();
+
+                    contacts.add(new Contact(id, name, address, phoneNumber, email));
+                } catch (NumberFormatException e)
+                {
+                    System.out.println("Skipping invalid line: " + line);
+                }
                 }
             }
+            Contact.setNextId(maxId + 1);
 
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());

@@ -29,18 +29,18 @@ public class Main {
                     view.creationConfirmation(creationStatus);
                     break;
                 case "3":
-                    String deleteName = view.getName();
-                    boolean deletionStatus = controller.deleteContact(deleteName);
+                    int deleteID = view.getID();
+                    boolean deletionStatus = controller.deleteContact(deleteID);
                     view.deletionConfirmation(deletionStatus);
                     break;
                 case "4":
-                    String searchName = view.getName();
-                    Contact foundContact = controller.searchContact(searchName);
+                    int searchID = view.getID();
+                    Contact foundContact = controller.searchContact(searchID);
                     view.displayContact(foundContact);
                     break;
                 case "5":
-                    String nameToUpdate = view.getName();
-                    boolean creationStat = controller.updateContact(nameToUpdate, view.getContactInput());
+                    int idToUpdate = view.getID();
+                    boolean creationStat = controller.updateContact(idToUpdate, view.getContactInput());
                     view.creationConfirmation(creationStat);
                 case "6":
                     controller.saveContactsToFile();

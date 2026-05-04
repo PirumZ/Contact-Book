@@ -1,22 +1,34 @@
 package com.myapp.model;
 
 public class Contact {
+    private static int nextId;
+    private int id;
     private String name;
     private String address;
     private String phoneNumber;
     private String email;
 
+
     public Contact(String name, String address, String phoneNumber, String email)
-    {
+    {   this.id = nextId++;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
+    public Contact(int id, String name, String address, String phoneNumber, String email)
+    {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
+        return  "id='" + id + '\'' +
+                "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'';
@@ -24,7 +36,11 @@ public class Contact {
 
     public String toCSV()
     {
-        return name + "," + address + "," + phoneNumber + "," + email;
+        return id + "," + name + "," + address + "," + phoneNumber + "," + email;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -57,5 +73,13 @@ public class Contact {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public static int getNextId() {
+        return nextId;
+    }
+
+    public static void setNextId(int nextId) {
+        Contact.nextId = nextId;
     }
 }

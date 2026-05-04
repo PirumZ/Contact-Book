@@ -87,6 +87,11 @@ public class ContactView {
             System.out.println(contact);
         }
     }
+    public int getID()
+    {
+        System.out.println("Please enter an ID number: ");
+        return Integer.parseInt(scanner.nextLine());
+    }
 
     public String getName()
     {
