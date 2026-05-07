@@ -1,6 +1,7 @@
 package com.myapp.controller;
 import com.myapp.model.Contact;
 import com.myapp.model.ContactInfo;
+import com.myapp.service.ValidationService;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import static java.lang.Integer.parseInt;
 
 public class ContactController {
     private ArrayList<Contact> contacts = new ArrayList<>();
+    private ValidationService validationService = new ValidationService();
 
     public ContactController(){
     }
@@ -15,31 +17,43 @@ public class ContactController {
 
     public boolean addContact(ContactInfo contactInfo)
     {
-        Contact contact = new Contact(
-                contactInfo.getName(),
-                contactInfo.getAddress(),
-                contactInfo.getPhoneNumber(),
-                contactInfo.getEmail()
-        );
-        contacts.add(contact);
-        return true;
+        // TO-DO turn into String return for proper error messaging
+        if (validationService.validateContact(contactInfo) != null){
+            return false;
+        } else
+        {
+            Contact contact = new Contact(
+                    contactInfo.getName(),
+                    contactInfo.getAddress(),
+                    contactInfo.getPhoneNumber(),
+                    contactInfo.getEmail()
+            );
+            contacts.add(contact);
+            return true;
+        }
+
+
     }
 
 
     public boolean updateContact(int idToFind, ContactInfo contactInfo)
     {
-        for (Contact contact : contacts)
-        {
-            if (contact.getId() == idToFind)
-            {
-                contact.setName(contactInfo.getName());
-                contact.setAddress(contactInfo.getAddress());
-                contact.setPhoneNumber(contactInfo.getPhoneNumber());
-                contact.setEmail(contactInfo.getEmail());
-                return true;
+        // TO-DO turn into String return for proper error messaging
+        if (validationService.validateContact(contactInfo) != null){
+            return false;
+        } else {
+
+            for (Contact contact : contacts) {
+                if (contact.getId() == idToFind) {
+                    contact.setName(contactInfo.getName());
+                    contact.setAddress(contactInfo.getAddress());
+                    contact.setPhoneNumber(contactInfo.getPhoneNumber());
+                    contact.setEmail(contactInfo.getEmail());
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
     }
 
     public Contact searchContact(int id)
